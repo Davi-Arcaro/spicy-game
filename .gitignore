@@ -1,0 +1,16 @@
+node_modules/
+.DS_Store
+.env
+.env.local
+.expo/
+dist/
+build/
+*.log
+ios/
+android/
+.turbo/
+.bun/
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
