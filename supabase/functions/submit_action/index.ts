@@ -131,7 +131,7 @@ Deno.serve(
       if ((contestCount ?? 0) > others / 2) {
         await admin
           .from('room_card_history')
-          .update({ contested: true })
+          .update({ outcome: 'contested' })
           .eq('room_id', input.roomId)
           .eq('card_id', room.current_card_id);
       }

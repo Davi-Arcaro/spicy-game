@@ -7,12 +7,14 @@ const config: ExpoConfig = {
   version: '0.0.1',
   orientation: 'portrait',
   userInterfaceStyle: 'automatic',
-  icon: './assets/icon.png',
-  splash: {
-    image: './assets/splash.png',
-    resizeMode: 'contain',
-    backgroundColor: '#0C0906',
-  },
+  // icon/splash/adaptiveIcon disabled until PNGs are added to assets/.
+  // Expo falls back to its default placeholders in dev mode.
+  // icon: './assets/icon.png',
+  // splash: {
+  //   image: './assets/splash.png',
+  //   resizeMode: 'contain',
+  //   backgroundColor: '#0C0906',
+  // },
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: false,
@@ -20,10 +22,10 @@ const config: ExpoConfig = {
   },
   android: {
     package: 'com.spicygame.app',
-    adaptiveIcon: {
-      foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#0C0906',
-    },
+    // adaptiveIcon: {
+    //   foregroundImage: './assets/adaptive-icon.png',
+    //   backgroundColor: '#0C0906',
+    // },
   },
   plugins: ['expo-font', 'expo-av'],
   extra: {
