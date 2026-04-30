@@ -83,12 +83,12 @@ export const updateProfileSchema = z.object({
   locale: z.string().optional(),
 });
 
-export type CreateRoomInput = z.infer<typeof createRoomSchema>;
-export type JoinRoomInput = z.infer<typeof joinRoomSchema>;
-export type LeaveRoomInput = z.infer<typeof leaveRoomSchema>;
-export type StartGameInput = z.infer<typeof startGameSchema>;
-export type DrawCardInput = z.infer<typeof drawCardSchema>;
-export type SpinRouletteInput = z.infer<typeof spinRouletteSchema>;
-export type SubmitActionInput = z.infer<typeof submitActionSchema>;
-export type AdvanceTurnInput = z.infer<typeof advanceTurnSchema>;
-export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
+export type CreateRoomInput = z.input<typeof createRoomSchema>;
+export type JoinRoomInput = z.input<typeof joinRoomSchema>;
+export type LeaveRoomInput = z.input<typeof leaveRoomSchema>;
+export type StartGameInput = z.input<typeof startGameSchema>;
+export type DrawCardInput = z.input<typeof drawCardSchema>;
+export type SpinRouletteInput = z.input<typeof spinRouletteSchema>;
+export type SubmitActionInput = z.input<typeof submitActionSchema>;
+export type AdvanceTurnInput = z.input<typeof advanceTurnSchema>;
+export type UpdateProfileInput = z.input<typeof updateProfileSchema>;

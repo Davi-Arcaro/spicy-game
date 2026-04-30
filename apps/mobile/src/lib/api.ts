@@ -73,7 +73,7 @@ async function callRaw<TOutput>(name: string, body: unknown): Promise<TOutput> {
 
 async function call<TInput, TOutput>(
   name: string,
-  schema: z.ZodSchema<TInput>,
+  schema: z.ZodType<unknown, z.ZodTypeDef, TInput>,
   input: unknown
 ): Promise<TOutput> {
   const parsed = schema.safeParse(input);

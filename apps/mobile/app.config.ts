@@ -27,7 +27,7 @@ const config: ExpoConfig = {
     //   backgroundColor: '#0C0906',
     // },
   },
-  plugins: ['expo-font', 'expo-av'],
+  plugins: ['expo-font', 'expo-audio', 'expo-asset'],
   extra: {
     supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL ?? 'http://127.0.0.1:54321',
     supabaseAnonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? '',

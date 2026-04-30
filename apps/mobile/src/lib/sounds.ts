@@ -1,4 +1,4 @@
-import { Audio } from 'expo-av';
+import { type AudioPlayer, createAudioPlayer, setAudioModeAsync } from 'expo-audio';
 
 import { storage } from './storage';
 
@@ -18,7 +18,7 @@ const sources: Partial<Record<SoundName, number>> = {
   // successChime: require('../../assets/sounds/success-chime.mp3'),
 };
 
-const cache = new Map<SoundName, Audio.Sound>();
+const cache = new Map<SoundName, AudioPlayer>();
 let initialized = false;
 
 export async function preloadSounds(): Promise<void> {
@@ -26,9 +26,9 @@ export async function preloadSounds(): Promise<void> {
   initialized = true;
 
   try {
-    await Audio.setAudioModeAsync({
-      playsInSilentModeIOS: false,
-      staysActiveInBackground: false,
+    await setAudioModeAsync({
+      playsInSilentMode: false,
+      shouldPlayInBackground: false,
     });
   } catch (err) {
     console.warn('[sounds] setAudioModeAsync failed', err);
@@ -38,11 +38,9 @@ export async function preloadSounds(): Promise<void> {
   for (const [name, source] of Object.entries(sources)) {
     if (!source) continue;
     try {
-      const { sound } = await Audio.Sound.createAsync(source, {
-        shouldPlay: false,
-        volume: 0.7,
-      });
-      cache.set(name as SoundName, sound);
+      const player = createAudioPlayer(source);
+      player.volume = 0.7;
+      cache.set(name as SoundName, player);
     } catch (err) {
       console.warn(`[sounds] failed to load ${name}`, err);
     }
@@ -52,22 +50,21 @@ export async function preloadSounds(): Promise<void> {
 export async function playSound(name: SoundName): Promise<void> {
   const prefs = await storage.getPreferences();
   if (!prefs.soundEnabled) return;
-  const sound = cache.get(name);
-  if (!sound) return;
+  const player = cache.get(name);
+  if (!player) return;
   try {
-    await sound.stopAsync();
-    await sound.setPositionAsync(0);
-    await sound.playAsync();
+    await player.seekTo(0);
+    player.play();
   } catch (err) {
     console.warn(`[sounds] failed to play ${name}`, err);
   }
 }
 
 export async function stopSound(name: SoundName): Promise<void> {
-  const sound = cache.get(name);
-  if (sound) {
-    try {
-      await sound.stopAsync();
-    } catch {}
-  }
+  const player = cache.get(name);
+  if (!player) return;
+  try {
+    player.pause();
+    await player.seekTo(0);
+  } catch {}
 }
